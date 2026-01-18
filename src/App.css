@@ -502,7 +502,21 @@
         font-size: 3rem;
     }
 
-    .hero-btns,
+    .hero-btns {
+        justify-content: center;
+        flex-direction: column;
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+
+    .hero-btns a,
+    .hero-btns button {
+        width: 100%;
+        padding: 0.8rem 1.5rem !important;
+        font-size: 0.95rem;
+    }
+
     .contact-item {
         justify-content: center;
     }
@@ -565,11 +579,13 @@
     background: linear-gradient(135deg, var(--accent-green) 0%, #00a040 100%);
     color: #000;
     text-decoration: none;
-    padding: 1rem 2rem;
+    padding: 0.8rem 1.8rem;
     border-radius: 12px;
+    font-size: 1rem;
     font-weight: 700;
-    display: flex;
+    display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 0.8rem;
     transition: all 0.3s ease;
     animation: buttonPulse 2s infinite;
