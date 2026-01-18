@@ -1,0 +1,102 @@
+:root {
+  --bg-dark: #0f0c29;
+  --bg-darker: #050510;
+  --primary-purple: #7e57c2;
+  --accent-purple: #9c27b0;
+  --accent-green: #00c853;
+  --accent-gold: #ffd700;
+  --text-white: #ffffff;
+  --text-gray: #b0b0b0;
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Outfit', 'Montserrat', sans-serif;
+  background-color: var(--bg-darker);
+  color: var(--text-white);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+section {
+  padding: 80px 0;
+}
+
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--primary-purple), var(--accent-gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent-green), #00e676);
+  color: #000;
+  padding: 0.8rem 2rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: inline-block;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 200, 83, 0.3);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--text-white);
+  border: 1px solid var(--glass-border);
+  padding: 0.8rem 2rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.btn-outline:hover {
+  background: var(--glass-bg);
+  border-color: var(--primary-purple);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-darker);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-purple);
+  border-radius: 10px;
+}
