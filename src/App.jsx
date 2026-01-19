@@ -24,70 +24,18 @@ const BASE_URL = 'https://apis.luckylunricants.in/api';
 const REWARD_APP_URL = 'https://reward.luckylunricants.in/';
 
 const IndiaMap = () => {
-    const mouseX = useMotionValue(0);
-    const mouseY = useMotionValue(0);
-
-    const rotateX = useSpring(useTransform(mouseY, [-300, 300], [15, -15]), { stiffness: 100, damping: 30 });
-    const rotateY = useSpring(useTransform(mouseX, [-300, 300], [-15, 15]), { stiffness: 100, damping: 30 });
-
-    const handleMouseMove = (e) => {
-        const rect = e.currentTarget.getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
-        mouseX.set(x);
-        mouseY.set(y);
-    };
-
-    const handleMouseLeave = () => {
-        mouseX.set(0);
-        mouseY.set(0);
-    };
-
     return (
         <motion.div
             className="india-map-container"
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-            style={{
-                perspective: 1000,
-                rotateX,
-                rotateY,
-                transformStyle: 'preserve-3d'
-            }}
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1 }}
         >
-            <svg viewBox="0 0 450 550" className="india-svg">
-                <defs>
-                    <linearGradient id="mapGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="var(--primary-purple)" />
-                        <stop offset="100%" stopColor="var(--accent-purple)" />
-                    </linearGradient>
-                    <filter id="glow">
-                        <feGaussianBlur stdDeviation="3" result="coloredBlur" />
-                        <feMerge>
-                            <feMergeNode in="coloredBlur" />
-                            <feMergeNode in="SourceGraphic" />
-                        </feMerge>
-                    </filter>
-                </defs>
-                <path
-                    d="M174,10 L168,25 L158,27 L152,39 L144,41 L136,49 L126,47 L118,59 L106,63 L106,75 L92,87 L90,101 L74,111 L72,125 L82,135 L100,141 L106,155 L118,159 L126,177 L152,183 L158,221 L176,237 L174,257 L184,273 L204,275 L218,267 L234,259 L248,267 L268,271 L264,299 L256,311 L216,359 L206,401 L180,447 L182,509 L198,523 L212,531 L226,523 L238,509 L240,479 L264,467 L274,397 L296,377 L304,329 L338,309 L358,295 L372,285 L378,265 L374,245 L366,225 L352,205 L334,191 L318,191 L306,201 L288,205 L272,199 L262,185 L262,165 L272,121 L278,101 L310,99 L332,117 L348,121 L364,113 L372,93 L364,73 L344,57 L322,51 L296,51 L280,57 L264,65 L244,51 L218,51 L208,25 L196,27 L204,9 L194,-1 L174,-1 L174,10 Z"
-                    fill="rgba(126, 87, 194, 0.2)"
-                    transform="translate(8, 8)"
-                />
-                <motion.path
-                    d="M174,10 L168,25 L158,27 L152,39 L144,41 L136,49 L126,47 L118,59 L106,63 L106,75 L92,87 L90,101 L74,111 L72,125 L82,135 L100,141 L106,155 L118,159 L126,177 L152,183 L158,221 L176,237 L174,257 L184,273 L204,275 L218,267 L234,259 L248,267 L268,271 L264,299 L256,311 L216,359 L206,401 L180,447 L182,509 L198,523 L212,531 L226,523 L238,509 L240,479 L264,467 L274,397 L296,377 L304,329 L338,309 L358,295 L372,285 L378,265 L374,245 L366,225 L352,205 L334,191 L318,191 L306,201 L288,205 L272,199 L262,185 L262,165 L272,121 L278,101 L310,99 L332,117 L348,121 L364,113 L372,93 L364,73 L344,57 L322,51 L296,51 L280,57 L264,65 L244,51 L218,51 L208,25 L196,27 L204,9 L194,-1 L174,-1 L174,10 Z"
-                    fill="url(#mapGradient)"
-                    filter="url(#glow)"
-                    initial={{ pathLength: 0, opacity: 0 }}
-                    animate={{ pathLength: 1, opacity: 1 }}
-                    transition={{ duration: 2, ease: "easeInOut" }}
-                />
-                <circle cx="210" cy="270" r="5" fill="var(--accent-gold)">
-                    <animate attributeName="r" from="3" to="8" dur="1.5s" repeatCount="indefinite" />
-                    <animate attributeName="opacity" from="1" to="0" dur="1.5s" repeatCount="indefinite" />
-                </circle>
-                <circle cx="210" cy="270" r="3" fill="var(--accent-gold)" />
-            </svg>
+            <img
+                src="/india-map.jpg"
+                alt="Lucky Lubricants India Presence"
+                className="india-map-image"
+            />
         </motion.div>
     );
 };
@@ -96,6 +44,7 @@ const App = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [currentImage, setCurrentImage] = useState(0);
+    const [currentInterface, setCurrentInterface] = useState(0);
     const [products, setProducts] = useState([]);
     const [loadingProducts, setLoadingProducts] = useState(true);
     const [formStatus, setFormStatus] = useState({ type: '', message: '' });
@@ -107,11 +56,20 @@ const App = () => {
         '/products/oil5.jpg'
     ];
 
+    const interfaceImages = [
+        '/app-interface-1.jpg',
+        '/app-interface-2.jpg',
+        '/app-interface-3.jpg',
+        '/app-interface-4.jpg',
+        '/app-interface-5.jpg'
+    ];
+
     useEffect(() => {
         fetchProducts();
         const timer = setInterval(() => {
             setCurrentImage((prev) => (prev + 1) % oilImages.length);
-        }, 3000);
+            setCurrentInterface((prev) => (prev + 1) % interfaceImages.length);
+        }, 3500);
         return () => clearInterval(timer);
     }, []);
 
@@ -131,21 +89,18 @@ const App = () => {
     const handleContactSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
-        const name = formData.get('name');
-        const phone = formData.get('phone');
-        const email = formData.get('email');
-        const userMessage = formData.get('message');
 
-        // Payload as per documentation: { "user_id": 1, "subject": "...", "message": "..." }
         const payload = {
-            user_id: 1,
+            full_name: formData.get('name'),
+            email: formData.get('email'),
+            number: formData.get('phone'),
             subject: formData.get('subject'),
-            message: `Name: ${name}\nPhone: ${phone}\nEmail: ${email}\nMessage: ${userMessage}`
+            message: formData.get('message')
         };
 
         try {
             setFormStatus({ type: 'loading', message: 'Sending message...' });
-            const response = await fetch(`${BASE_URL}/content/support/contact`, {
+            const response = await fetch(`${BASE_URL}/content/website/contact`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -338,10 +293,28 @@ const App = () => {
                         >
                             <a href={REWARD_APP_URL} target="_blank" rel="noopener noreferrer" className="app-screenshot-link">
                                 <div className="app-screenshot-container">
-                                    <img src="/app-screenshot.png" alt="Lucky Lubricant App" />
+                                    <AnimatePresence mode="wait">
+                                        <motion.img
+                                            key={currentInterface}
+                                            src={interfaceImages[currentInterface]}
+                                            alt={`Lucky Lubricant App Screen ${currentInterface + 1}`}
+                                            initial={{ opacity: 0, x: 20 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            exit={{ opacity: 0, x: -20 }}
+                                            transition={{ duration: 0.5 }}
+                                        />
+                                    </AnimatePresence>
                                     <div className="screenshot-overlay">
                                         <Download size={48} />
                                         <span>Download Now</span>
+                                    </div>
+                                    <div className="carousel-dots">
+                                        {interfaceImages.map((_, idx) => (
+                                            <div
+                                                key={idx}
+                                                className={`dot ${currentInterface === idx ? 'active' : ''}`}
+                                            />
+                                        ))}
                                     </div>
                                 </div>
                             </a>
